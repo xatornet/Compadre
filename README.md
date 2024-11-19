@@ -1,4 +1,4 @@
-# Compadre
+# Compadre - El comparador campechano
 Pequeño comparador de archivos, con extracción de los archivos que tienen distinto checksum. Creado con ChatGPT
 
 ## Uso
