@@ -1,0 +1,39 @@
+name: Build Windows Executable
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    # Configurar el repositorio
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Instalar MinGW
+    - name: Install MinGW
+      run: |
+        choco install mingw -y
+        echo "C:\\Program Files\\mingw\\bin" >> $env:GITHUB_PATH
+
+    # Verificar la instalación de GCC
+    - name: Verify GCC Installation
+      run: gcc --version
+
+    # Compilar el archivo en un ejecutable .exe
+    - name: Build Executable
+      run: gcc -o Compadre.exe Compadre.c
+
+    # Subir el ejecutable como artefacto
+    - name: Upload Executable
+      uses: actions/upload-artifact@v4
+      with:
+        name: Compadre.exe
+        path: Compadre.exe
